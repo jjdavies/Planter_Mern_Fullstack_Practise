@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Tile from './components/Tile'
+
+export class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      arr:[0,0,0,1,1]
+    }
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <header className="App-header">
+          Planter
+        </header>
+        <div className="grid-container">
+          {this.state.arr.map(()=>(
+            <Tile className="tile" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
