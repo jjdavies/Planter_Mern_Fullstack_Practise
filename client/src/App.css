@@ -15,7 +15,8 @@
 
 .grid-container{
   display:grid;
-  grid-template-columns: repeat(5, 85px);
+  grid-template-columns: repeat(10, 85px);
+  grid-template-rows: repeat(10, 85px);
   grid-column-gap: 2px;
 }
 

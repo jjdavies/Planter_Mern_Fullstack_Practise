@@ -7,7 +7,7 @@ export class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      arr:[0,0,0,1,1]
+      tiles: Array(100)
     }
   }
 
@@ -18,9 +18,8 @@ export class App extends Component {
           Planter
         </header>
         <div className="grid-container">
-          {this.state.arr.map(()=>(
-            <Tile className="tile" />
-          ))}
+          {this.state.tiles.fill(<Tile />)}
+          
         </div>
       </div>
     );
