@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+
 import blankTile from '../assets/img/blankTile.png'
 import placePot from '../assets/img/placePot.png'
 import stage1 from '../assets/img/stage1.png'
@@ -15,6 +17,7 @@ export class Tile extends Component {
     constructor(props){
         super(props)
         this.state = {
+            index:props.index,
             isBlank: true,
             isPlace: false,
             stage:0
@@ -41,6 +44,17 @@ export class Tile extends Component {
             isPlace: false,
             stage:1
         })
+        //update the DB
+        const planter = {
+            gridrow: ((this.state.index - (this.state.index % 10))/10) + 1,
+            gridcol: (this.state.index % 10) + 1,
+            status: "stage1",
+            newstatus: "stage2"
+
+        }
+        console.log(planter)
+        axios.post('/api/greenhouse', planter)
+            .then(res => console.log(res.data))
     }
 
     render() {
@@ -57,17 +71,17 @@ export class Tile extends Component {
         ]
         let tileRender
         if (this.state.isBlank){
-            tileRender = <img className="stack-tiles" src={blankTile} onMouseOver = {this.blankTileOver}/>
+            tileRender = <img className="stack-tiles" src={blankTile} onMouseOver = {this.blankTileOver} />
         } else if (this.state.isPlace){
             tileRender = <img className="stack-tiles" src={placePot} onMouseOut={this.placePotOut} onClick={this.placeClick} />
         } else if (this.state.stage > 0){
-            tileRender = <img className="stack-tiles" src={staged[this.state.stage]}/>
+            tileRender = <img className="stack-tiles" src={staged[this.state.stage]} />
         }
         
         return (
             <div>
                 <div className="stack">
-                    {tileRender}
+                    {tileRender}{this.state.index}
                 </div>
             </div>
         )
